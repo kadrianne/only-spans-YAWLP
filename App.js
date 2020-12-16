@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Platform, StatusBar } from 'react-native';
 import RestaurantsContainer from './components/RestaurantsContainer';
 
 export default function App() {
@@ -23,5 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#fff',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
 });
