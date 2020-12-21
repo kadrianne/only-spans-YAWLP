@@ -10,6 +10,8 @@ const apiUrl = "https://api.yelp.com/v3/businesses/search?term=restaurants&locat
 export default function RestaurantsContainer() {
   const dispatch = useDispatch()
   const restaurants = useSelector(state => state.restaurants)
+  const favorites = useSelector(state => state.favorites)
+  console.log(favorites, 'favorites')
 
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -32,7 +34,6 @@ export default function RestaurantsContainer() {
 
   const handleSearchText = (text) => {
     setSearchTerm(text)
-    console.log(searchTerm)
   }
 
   const handleSearch = () => {
@@ -76,7 +77,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     flexDirection: 'row',
-    margin: 15
+    marginHorizontal: 15,
+    marginTop: 15
   },
   search: {
     height: 40,

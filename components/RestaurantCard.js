@@ -7,10 +7,17 @@ import {
   TouchableOpacity,
   Linking
 } from 'react-native' 
+import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function RestaurantCard({restaurant, index}) {
 
-  console.log(restaurant)
+  const dispatch = useDispatch()
+
+  const handleFavorite = () => {
+    dispatch({ type: 'ADD_FAVORITE', favorite: restaurant})
+  }
+  
   return (
     <View style={styles.container}>
       <Image style={styles.cardImage} source={{uri: restaurant.image_url}}/>
@@ -19,12 +26,21 @@ export default function RestaurantCard({restaurant, index}) {
           <Text style={styles.name}>{index}. {restaurant.name}</Text>
           <Text style={styles.price}>{restaurant.price}</Text>   
         </View>
-        <Text style={styles.rating}>Rating: {restaurant.rating}</Text>
-        <Text style={styles.address}>{restaurant.location.address1}</Text>
-        <View style={[styles.rowView, {justifyContent: "flex-start"}]}>
-          {restaurant.categories.map((category, index) => (
-            <Text key={index}>{category.title}, </Text>
-          ))}
+        <View>
+          <View>
+            <Text style={styles.rating}>Rating: {restaurant.rating}</Text>
+            <Text style={styles.address}>{restaurant.location.address1}</Text>
+            <View style={[styles.rowView, {justifyContent: "flex-start"}]}>
+              {restaurant.categories.map((category, index) => (
+                <Text key={index}>{category.title}, </Text>
+              ))}
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={() => handleFavorite()}
+          >
+            <Ionicons name="heart" size={24} color="red" />
+          </TouchableOpacity>
         </View>
         <TouchableOpacity 
           style={styles.visitWebsiteButton}
@@ -50,7 +66,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     marginVertical: 15,
-  },  
+  },
   rowView: {
     flexDirection: 'row',
     justifyContent: 'space-between'

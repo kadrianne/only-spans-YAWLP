@@ -9,6 +9,18 @@ const restaurants = (state=[], action) => {
   }
 }
 
+const favorites = (state=[], action) => {
+  switch(action.type){
+    case "ADD_FAVORITE":
+      if (!state.find(restaurant => restaurant.id === action.favorite.id)){
+        return [...state, action.favorite]
+      }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   restaurants,
+  favorites
 })
